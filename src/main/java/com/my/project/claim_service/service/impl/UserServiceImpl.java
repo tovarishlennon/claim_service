@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         String jwt = jwtGenerator.generateToken(authentication);
 
         GetLoginTokenResponseDto  responseDto = new GetLoginTokenResponseDto();
-        responseDto.setAccessToken("Access token" + jwt);
+        responseDto.setAccessToken(jwt);
         return responseDto;
     }
 
