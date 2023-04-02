@@ -1,5 +1,6 @@
 package com.my.project.claim_service.util;
 
+import com.my.project.claim_service.dto.token.GenerateTokenResponseDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
@@ -11,6 +12,9 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Component
@@ -22,7 +26,7 @@ public class JwtGenerator {
     @Value("${jwt.expirationMs}")
     private int jwtExpirationMs;
 
-    public String generateToken(Authentication authentication) {
+    public GenerateTokenResponseDto generateToken(Authentication authentication) {
         String username = authentication.getName();
         Date currentDate = new Date();
         Date expiresAt = new Date(currentDate.getTime() + jwtExpirationMs);
@@ -32,7 +36,12 @@ public class JwtGenerator {
                 .setIssuedAt(new Date())
                 .setExpiration(expiresAt)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
-        return token;
+        Instant instant = expiresAt.toInstant();
+        ZonedDateTime localDateTime = instant.atZone(ZoneId.systemDefault());
+        GenerateTokenResponseDto responseDto = new GenerateTokenResponseDto();
+        responseDto.setToken(token);
+        responseDto.setExpiresAt(localDateTime);
+        return responseDto;
     }
 
     public String getUserFromJWT(String token) {

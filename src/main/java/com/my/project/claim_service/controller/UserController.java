@@ -1,7 +1,7 @@
 package com.my.project.claim_service.controller;
 
-import com.my.project.claim_service.dto.GetLoginTokenRequestDto;
-import com.my.project.claim_service.dto.GetLoginTokenResponseDto;
+import com.my.project.claim_service.dto.user.GetLoginTokenRequestDto;
+import com.my.project.claim_service.dto.user.GetLoginTokenResponseDto;
 import com.my.project.claim_service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.my.project.claim_service.dto;
+package com.my.project.claim_service.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

@@ -1,7 +1,8 @@
 package com.my.project.claim_service.service.impl;
 
-import com.my.project.claim_service.dto.GetLoginTokenRequestDto;
-import com.my.project.claim_service.dto.GetLoginTokenResponseDto;
+import com.my.project.claim_service.dto.token.GenerateTokenResponseDto;
+import com.my.project.claim_service.dto.user.GetLoginTokenRequestDto;
+import com.my.project.claim_service.dto.user.GetLoginTokenResponseDto;
 import com.my.project.claim_service.service.UserService;
 import com.my.project.claim_service.util.JwtGenerator;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,28 +33,14 @@ public class UserServiceImpl implements UserService {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtGenerator.generateToken(authentication);
+        GenerateTokenResponseDto responseFromJwtGenerator = jwtGenerator.generateToken(authentication);
 
-        GetLoginTokenResponseDto  responseDto = new GetLoginTokenResponseDto();
-        responseDto.setAccessToken(jwt);
+        GetLoginTokenResponseDto responseDto = new GetLoginTokenResponseDto();
+        responseDto.setAccessToken(responseFromJwtGenerator.getToken());
+        responseDto.setCode(0);
+        responseDto.setExpiresAt(responseFromJwtGenerator.getExpiresAt());
+
         return responseDto;
     }
 
-//    private final JwtUtils jwtUtils;
-//
-//    public UserServiceImpl(JwtUtils jwtUtils) {
-//        this.jwtUtils = jwtUtils;
-//    }
-//
-//    @Override
-//    public GetLoginTokenResponseDto login(UserDetails principalUser) {
-//        GetLoginTokenResponseDto responseDto= new GetLoginTokenResponseDto();
-//        String result = jwtUtils.generateJwtToken(principalUser);
-//        responseDto.setCode(0);
-//
-//        responseDto.setAccessToken(result);
-//        responseDto.setExpiresAt(ZonedDateTime.now().plusMinutes(2));
-//
-//        return responseDto;
-//    }
 }
