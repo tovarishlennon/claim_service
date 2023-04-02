@@ -17,3 +17,8 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/liquibase-changelog.xml
     enabled: true
+
+jwt:
+  secret: "m35AV#&Sp425^T4JBqLJUVeIqUgy2uDBVnVPtltoL#zrCRitR3"
+  expirationMs: 3600000
+
