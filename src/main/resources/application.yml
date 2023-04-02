@@ -1,0 +1,19 @@
+server:
+  port: 8990
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/claim_db
+    username: postgres
+    password: 123321
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 30000
+      max-lifetime: 2000000
+      connection-timeout: 30000
+      pool-name: HikariDbPool
+  liquibase:
+    change-log: classpath:/db/changelog/liquibase-changelog.xml
+    enabled: true

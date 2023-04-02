@@ -1,0 +1,30 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Azim Shamuratov" id="create_table_requests">
+        <createTable tableName="requests">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_requests"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_requests_users"
+                             references="users(id)"/>
+            </column>
+            <column name="text" type="varchar">
+                <constraints/>
+            </column>
+            <column name="status" type="integer">
+                <constraints/>
+            </column>
+            <column name="created_at" type="timestamp">
+                <constraints/>
+            </column>
+            <column name="updated_at" type="timestamp">
+                <constraints/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
