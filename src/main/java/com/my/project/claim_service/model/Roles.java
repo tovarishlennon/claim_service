@@ -20,7 +20,4 @@ public class Roles extends BaseEntity implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "status")
-    private Integer status;
 }
