@@ -4,18 +4,16 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
-import java.time.ZonedDateTime;
-
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class GetLoginTokenResponseDto {
+public class EditDraftResponseDto {
     private Integer code;
-    private String accessToken;
-    private ZonedDateTime expiresAt;
+    private String message;
+    private Long draftId;
 
-    public GetLoginTokenResponseDto(Integer code, String accessToken, ZonedDateTime expiresAt) {
+    public EditDraftResponseDto(Integer code, String message, Long draftId) {
         this.code = code;
-        this.accessToken = accessToken;
-        this.expiresAt = expiresAt;
+        this.message = message;
+        this.draftId = draftId;
     }
 }

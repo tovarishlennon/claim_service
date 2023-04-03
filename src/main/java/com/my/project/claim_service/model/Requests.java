@@ -23,4 +23,10 @@ public class Requests extends BaseEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
+
+    public Requests(String text, Integer status, Users users) {
+        this.text = text;
+        this.status = status;
+        this.users = users;
+    }
 }
