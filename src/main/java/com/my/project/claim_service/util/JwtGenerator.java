@@ -2,11 +2,8 @@ package com.my.project.claim_service.util;
 
 import com.my.project.claim_service.dto.token.GenerateTokenResponseDto;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import liquibase.pro.packaged.S;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;

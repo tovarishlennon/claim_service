@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "users")
 @Data
 @EntityListeners(AuditingEntityListener.class)
-public class Users  extends BaseEntity implements Serializable {
+public class Users extends BaseEntity implements Serializable {
 
     @Column(unique = true, name = "login")
     private String username;
@@ -31,8 +31,6 @@ public class Users  extends BaseEntity implements Serializable {
 
     private String phone;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Roles> usersRoles = new ArrayList<>();
+    @OneToMany(mappedBy = "roleId", fetch = FetchType.EAGER)
+    private List<UsersRoles> usersRoles;
 }
