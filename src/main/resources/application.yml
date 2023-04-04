@@ -22,3 +22,9 @@ jwt:
   secret: "m35AV#&Sp425^T4JBqLJUVeIqUgy2uDBVnVPtltoL#zrCRitR3"
   expirationMs: 3600000
 
+role:
+  name:
+    adm: ADMIN
+    oper: OPERATOR
+    usr: USER
+

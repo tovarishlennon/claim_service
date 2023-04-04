@@ -15,12 +15,21 @@ public interface RequestsMapper {
 
     @Mappings({
             @Mapping(target = "id", source = "entity.id"),
+            @Mapping(target = "name", source = "entity.users.name")
 
     })
     GetAllRequestsResponseDto toMapRequestToDto(Requests entity);
 
     @Mappings({
             @Mapping(target = "id", source = "entity.id"),
+            @Mapping(target = "name", source = "entity.users.name"),
+            @Mapping(target = "text", ignore = true)
+
+    })
+    GetAllRequestsResponseDto toMapRequestToDtoWithDashes(Requests entity);
+
+    @Mappings({
+            @Mapping(target = "name", source = "entity.users.name")
 
     })
     GetAllDraftsResponseDto toMapRequestToDraftDto(Requests entity);

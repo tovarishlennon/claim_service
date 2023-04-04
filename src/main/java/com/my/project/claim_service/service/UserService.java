@@ -4,7 +4,6 @@ import com.my.project.claim_service.dto.user.*;
 import org.springframework.data.domain.Page;
 
 public interface UserService {
-    GetLoginTokenResponseDto login(GetLoginTokenRequestDto dto);
 
     UserCreateRequestResponseDto createRequest(UserCreateRequestRequestDto dto);
 

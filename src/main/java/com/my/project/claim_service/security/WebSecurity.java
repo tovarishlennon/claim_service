@@ -66,7 +66,7 @@ public class WebSecurity  {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/login").permitAll()
+                .antMatchers("/auth/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

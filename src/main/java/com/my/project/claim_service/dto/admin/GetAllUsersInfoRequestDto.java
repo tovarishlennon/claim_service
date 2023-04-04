@@ -1,17 +1,25 @@
-package com.my.project.claim_service.dto.user;
+package com.my.project.claim_service.dto.admin;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class GetAllRequestsResponseDto {
+public class GetAllUsersInfoRequestDto {
     private Long id;
-    private String text;
-    private Integer status;
+
+    private String username;
+
     private String name;
-    private LocalDateTime dateCreated;
+
+    private String email;
+
+    private String phone;
+
+    private Integer status;
+
+    private List<String> roles;
 }

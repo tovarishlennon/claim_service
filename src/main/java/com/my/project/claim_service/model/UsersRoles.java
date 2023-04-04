@@ -18,4 +18,6 @@ public class UsersRoles extends BaseEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Roles roleId;
+
+    private Integer status;
 }
