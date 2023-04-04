@@ -21,6 +21,14 @@ public interface RequestsMapper {
     GetAllRequestsResponseDto toMapRequestToDto(Requests entity);
 
     @Mappings({
+            @Mapping(target = "id", source = "entity.id"),
+            @Mapping(target = "name", source = "entity.users.name"),
+            @Mapping(target = "text", ignore = true)
+
+    })
+    GetAllRequestsResponseDto toMapRequestToDtoWithDashes(Requests entity);
+
+    @Mappings({
             @Mapping(target = "id", source = "entity.users.name")
 
     })

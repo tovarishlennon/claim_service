@@ -20,7 +20,7 @@ public interface RequestsRepository extends JpaRepository<Requests, Long> {
     countQuery = "SELECT COUNT(r) FROM Requests r WHERE r.users.id = :userId and r.status = 1")
     Page<Requests> findAllCreatedDraftsByUserIdAndOrderBy(@Param("userId") Long userId, Pageable pageable);
 
-    // тут я принял решение, что оператор вправе увидеть все отправленнные на рассмотрение заявки со всеми статуса кроме черновиков,
+    // тут я принял решение, что оператор вправе увидеть все отправленнные на рассмотрение заявки со всеми статусами кроме черновиков,
     // так как могут возникнуть ситуации когда оператору придется смотреть историю всех заявок по пользователю и принимать их снова
     // черновики доступны только пользователям, потому что они считаются "мусорными" и особой ценности не имеют
     @Query(value = "SELECT r FROM Requests r WHERE r.status NOT IN (1) AND (:userName IS null OR (r.users.name LIKE %:userName%))",

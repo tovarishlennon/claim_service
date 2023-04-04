@@ -10,6 +10,7 @@ import com.my.project.claim_service.mapper.RequestsMapper;
 import com.my.project.claim_service.model.Requests;
 import com.my.project.claim_service.repository.RequestsRepository;
 import com.my.project.claim_service.service.OperatorService;
+import com.my.project.claim_service.utils.ConvertText;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,11 @@ public class OperatorServiceImpl implements OperatorService {
         Page<Requests> pageableRequests = requestsRepository.findAllCreatedRequests(name, paging);
 
         if(!pageableRequests.isEmpty()) {
-            response = pageableRequests.stream().map(requestsMapper::toMapRequestToDto).collect(Collectors.toList());
+            response = pageableRequests.stream().map( req -> {
+                GetAllRequestsResponseDto n = requestsMapper.toMapRequestToDtoWithDashes(req);
+                n.setText(ConvertText.convertToDashSeparatedString(req.getText()));
+                return n;
+            }).collect(Collectors.toList());
             return new PageImpl<>(response, paging, pageableRequests.getTotalElements());
         } else {
             return new PageImpl<>(response, paging, 0);
