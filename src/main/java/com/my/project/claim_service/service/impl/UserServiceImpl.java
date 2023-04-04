@@ -1,6 +1,8 @@
 package com.my.project.claim_service.service.impl;
 
 import com.my.project.claim_service.constant.RequestStatuses;
+import com.my.project.claim_service.constant.ResultCodes;
+import com.my.project.claim_service.dto.exception.ApiException;
 import com.my.project.claim_service.dto.token.GenerateTokenResponseDto;
 import com.my.project.claim_service.dto.user.*;
 import com.my.project.claim_service.mapper.RequestsMapper;
@@ -26,37 +28,17 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final AuthenticationManager authenticationManager;
-    private final JwtGenerator jwtGenerator;
     private final UsersRepository usersRepository;
     private final BillingService billingService;
     private final RequestsRepository requestsRepository;
     private final RequestsMapper requestsMapper;
 
-    public UserServiceImpl(AuthenticationManager authenticationManager, JwtGenerator jwtGenerator,
-                           UsersRepository usersRepository, BillingService billingService,
+    public UserServiceImpl(UsersRepository usersRepository, BillingService billingService,
                            RequestsRepository requestsRepository, RequestsMapper requestsMapper) {
-        this.authenticationManager = authenticationManager;
-        this.jwtGenerator = jwtGenerator;
         this.usersRepository = usersRepository;
         this.billingService = billingService;
         this.requestsRepository = requestsRepository;
         this.requestsMapper = requestsMapper;
-    }
-
-    @Override
-    public GetLoginTokenResponseDto login(GetLoginTokenRequestDto dto) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        dto.getUsername(),
-                        dto.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        GenerateTokenResponseDto responseFromJwtGenerator = jwtGenerator.generateToken(authentication);
-
-        return new GetLoginTokenResponseDto(0, responseFromJwtGenerator.getToken(), responseFromJwtGenerator.getExpiresAt());
     }
 
     @Override
@@ -77,9 +59,9 @@ public class UserServiceImpl implements UserService {
     public UserCreateRequestResponseDto createRequestFromDraft(Long draftId) {
         PrincipalUser user = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users userById = usersRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("User not found!"));
-        Requests requests = requestsRepository.findByIdAndUsers_Id(draftId, user.getId()).orElseThrow(() -> new RuntimeException("Draft was not found!"));
+        Requests requests = requestsRepository.findByIdAndUsers_Id(draftId, user.getId()).orElseThrow(() -> new ApiException(ResultCodes.FAIL, "Draft was not found!"));
         if (!Objects.equals(requests.getStatus(), RequestStatuses.DRAFT.getStatus())) {
-            throw new RuntimeException("Sorry, it is not a draft");
+            throw new ApiException(ResultCodes.FAIL, "Sorry, it is not a draft");
         }
         return billingService.createAndSaveRequestFromDraftRequest(userById, requests);
     }
@@ -103,9 +85,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public EditDraftResponseDto editDraft(EditDraftRequestDto dto) {
         PrincipalUser user = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Requests request = requestsRepository.findByIdAndUsers_Id(dto.getDraftId(), user.getId()).orElseThrow(() -> new RuntimeException("Draft was not found!"));
+        Requests request = requestsRepository.findByIdAndUsers_Id(dto.getDraftId(), user.getId()).orElseThrow(() -> new ApiException(ResultCodes.FAIL, "Draft was not found!"));
         if (!Objects.equals(request.getStatus(), RequestStatuses.DRAFT.getStatus())) {
-            throw new RuntimeException("Sorry, it is not a draft");
+            throw new ApiException(ResultCodes.FAIL, "Sorry, it is not a draft");
         }
         return billingService.editAndSaveDraft(request, dto);
     }

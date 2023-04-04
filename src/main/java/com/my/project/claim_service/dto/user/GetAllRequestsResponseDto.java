@@ -12,5 +12,6 @@ public class GetAllRequestsResponseDto {
     private Long id;
     private String text;
     private Integer status;
+    private String name;
     private LocalDateTime dateCreated;
 }

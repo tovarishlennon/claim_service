@@ -1,6 +1,7 @@
 package com.my.project.claim_service.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.my.project.claim_service.constant.RoleStatuses;
 import com.my.project.claim_service.model.UsersRoles;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
@@ -16,7 +18,6 @@ import java.util.stream.Collectors;
 public class PrincipalUser extends User {
     private Long id;
     private List<UsersRoles> usersRoles;
-
     private String username;
     private String phone;
     private String name;
@@ -32,3 +33,4 @@ public class PrincipalUser extends User {
         this.email = email;
     }
 }
+
