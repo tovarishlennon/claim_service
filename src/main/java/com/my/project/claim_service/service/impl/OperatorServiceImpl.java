@@ -10,7 +10,7 @@ import com.my.project.claim_service.mapper.RequestsMapper;
 import com.my.project.claim_service.model.Requests;
 import com.my.project.claim_service.repository.RequestsRepository;
 import com.my.project.claim_service.service.OperatorService;
-import com.my.project.claim_service.utils.ConvertText;
+import com.my.project.claim_service.util.ConvertText;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -43,11 +43,12 @@ public class OperatorServiceImpl implements OperatorService {
         }
     }
 
-    // тут я решил добавить валидацию на то, что заявка не является случайно черновиком или не в статусе "accepted"
+
     @Override
     public AcceptRequestResponseDto acceptRequestByDraftId(Long draftId) {
         Requests request = requestsRepository.findById(draftId).orElseThrow(() -> new ApiException(ResultCodes.FAIL, "Draft was not found!"));
 
+        // тут я решил добавить валидацию на то, что заявка не является случайно черновиком или не в статусе "accepted"
         if (Objects.equals(request.getStatus(), RequestStatuses.DRAFT.getStatus())) {
             throw new ApiException(ResultCodes.FAIL, "This request is a draft!");
         } else if (Objects.equals(request.getStatus(), RequestStatuses.ACCEPTED.getStatus())) {
@@ -60,11 +61,12 @@ public class OperatorServiceImpl implements OperatorService {
         return new AcceptRequestResponseDto(draftId, ResultCodes.OK.getCode(), "Draft was accepted");
     }
 
-    // тут я решил добавить валидацию на то, что заявка не является случайно черновиком или не в статусе "rejected"
+
     @Override
     public RejectRequestResponseDto rejectRequestByDraftId(Long draftId) {
         Requests request = requestsRepository.findById(draftId).orElseThrow(() -> new ApiException(ResultCodes.FAIL, "Draft was not found!"));
 
+        // тут я решил добавить валидацию на то, что заявка не является случайно черновиком или не в статусе "rejected"
         if (Objects.equals(request.getStatus(), RequestStatuses.DRAFT.getStatus())) {
             throw new ApiException(ResultCodes.FAIL, "This request is a draft!");
         } else if (Objects.equals(request.getStatus(), RequestStatuses.REJECTED.getStatus())) {

@@ -1,4 +1,4 @@
-package com.my.project.claim_service.utils;
+package com.my.project.claim_service.util;
 
 public class ConvertText {
     public static String convertToDashSeparatedString(String input) {
