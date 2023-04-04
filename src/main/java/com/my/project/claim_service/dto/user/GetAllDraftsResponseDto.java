@@ -2,7 +2,6 @@ package com.my.project.claim_service.dto.user;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import liquibase.pro.packaged.S;
 import lombok.Data;
 
 import java.time.LocalDateTime;

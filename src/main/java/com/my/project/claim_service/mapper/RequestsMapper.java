@@ -29,7 +29,7 @@ public interface RequestsMapper {
     GetAllRequestsResponseDto toMapRequestToDtoWithDashes(Requests entity);
 
     @Mappings({
-            @Mapping(target = "id", source = "entity.users.name")
+            @Mapping(target = "name", source = "entity.users.name")
 
     })
     GetAllDraftsResponseDto toMapRequestToDraftDto(Requests entity);
