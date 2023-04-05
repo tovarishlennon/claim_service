@@ -38,7 +38,7 @@ public class ExceptionHandlerController {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
-    public  ErrorResponseDto handleAclCabinetException(Exception ex) {
+    public  ErrorResponseDto handleException(Exception ex) {
         return new ErrorResponseDto(ResultCodes.SYSTEM_FAILURE.getCode(), "Service temporary unavailable");
     }
 
